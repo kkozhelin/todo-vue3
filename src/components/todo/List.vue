@@ -42,4 +42,7 @@ li{
   padding: 0.5rem;
 }
 
+span{
+  cursor: pointer;
+}
 </style>
