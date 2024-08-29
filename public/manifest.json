@@ -1,0 +1,34 @@
+{
+    "lang": "en",
+    "dir": "ltr",
+    "name": "Todo list",
+    "short_name": "Todo",
+    "theme_color": "#e6dfdf",
+    "description": "Todo list app",
+    "icons": [
+    {
+      "src": "lable.svg",
+      "sizes": "64x64"
+    },
+    {
+        "src": "lable144px.svg",
+        "sizes": "144x144"
+      }],
+    "scope": "/",
+    "id": "todoList",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#e6dfdf",
+    "screenshots":[{
+      "src": "screenshot688x780.png",
+      "sizes": "688x780",
+      "type": "image/png"
+    },
+    {
+        "src": "screenshot1808x941.png",
+        "sizes": "1808x941",
+        "form_factor": "wide",
+        "type": "image/png"
+    }]
+  }
