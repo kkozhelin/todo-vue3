@@ -4,40 +4,9 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import Form from "./components/todo/Form.vue";
 import List from "./components/todo/List.vue";
 
-import type { Todo } from "./types/Todo";
 import type { BeforeInstallPromptEvent } from "./types/BeforeInstallPromptEvent";
 
-const newTodo = ref("");
-const todos = ref<Todo[]>(JSON.parse(localStorage.getItem("todos") || "[]"));
-
-function addTodo() {
-  if (newTodo.value) {
-    todos.value.push({
-      id: Date.now(),
-      text: newTodo.value,
-      done: false,
-    });
-    newTodo.value = "";
-    saveData();
-  }
-}
-
-function toggleTodo(todo: Todo) {
-  todo.done = !todo.done;
-  saveData();
-}
-
-function deleteTodo(todo: Todo) {
-  todos.value = todos.value.filter((t) => t.id !== todo.id);
-  saveData();
-}
-
-function saveData() {
-  localStorage.setItem("todos", JSON.stringify(todos.value));
-}
-
 // Установка PWA
-
 const _install_ready = ref(false);
 const _install_prompt = ref<BeforeInstallPromptEvent | null>(null);
 const _app_installed = ref(false);
@@ -70,21 +39,21 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <p v-show="_install_ready && !_app_installed">
-    Install this app
-    <button @click="installPWA()">Install</button>
-  </p>
-
   <div class="todo-container">
     <header>
       <h1>Todo App</h1>
     </header>
 
-    <Form @addTodo="addTodo" v-model:textTodo="newTodo" />
+    <Form />
 
     <hr />
     <h2>Todo list</h2>
 
-    <List :todos="todos" @toggleTodo="toggleTodo" @deleteTodo="deleteTodo" />
+    <List />
   </div>
+
+  <p v-show="_install_ready && !_app_installed">
+    Install this app
+    <button @click="installPWA()">Install</button>
+  </p>
 </template>

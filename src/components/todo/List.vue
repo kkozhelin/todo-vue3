@@ -1,28 +1,22 @@
 <script setup lang="ts">
+import { useTodoStore } from "@/store/Todo";
 
-import type { Todo } from '../../types/Todo';
-
-defineProps<{
-  todos: Todo[]
-}>();
-
-defineEmits(['toggleTodo', 'deleteTodo']);
+const todoStore = useTodoStore();
 </script>
 
-
 <template>
-  <ul v-if="todos.length">
-    <li v-for="todo in todos" :key="todo.id"><span @click="$emit('toggleTodo', todo)" :class="{ done: todo.done }">
-      {{ todo.text }}</span>
-      <button @click="$emit('deleteTodo', todo)" >Delete</button>
+  <ul v-if="todoStore.todos.length">
+    <li v-for="todo in todoStore.todos" :key="todo.id">
+      <span @click="todoStore.toggleTodo(todo)" :class="{ done: todo.done }">
+        {{ todo.text }}</span
+      >
+      <button @click="todoStore.deleteTodo(todo)">Delete</button>
     </li>
   </ul>
   <h4 v-else>Empty list</h4>
 </template>
 
-
 <style scoped>
-
 .done {
   text-decoration: line-through;
 }
@@ -33,7 +27,7 @@ ul {
   gap: 0.8rem;
 }
 
-li{
+li {
   display: flex;
   justify-content: space-between;
   gap: 0.5rem;
@@ -42,7 +36,7 @@ li{
   padding: 0.5rem;
 }
 
-span{
+span {
   cursor: pointer;
 }
 </style>

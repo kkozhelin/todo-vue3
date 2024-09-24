@@ -1,45 +1,33 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import { useTodoStore } from "@/store/Todo";
 
-import { computed } from 'vue';
+const todoStore = useTodoStore();
 
-const props = defineProps<{
-  textTodo: String
-}>();
+const inputValue = ref("");
 
-const emit = defineEmits(['addTodo', 'update:textTodo']);
-
-const inputValue = computed({
-  get() {
-    return props.textTodo;
-  },
-
-  set(newValue) {
-    emit('update:textTodo', newValue);
-  },
-});
-
+function addTodo() {
+  if (inputValue.value) {
+    todoStore.addTodo(inputValue.value);
+    inputValue.value = "";
+  }
+}
 </script>
 
 <template>
-  <form @submit.prevent="$emit('addTodo')">
-
-
-      <label for="todo">New Todo</label>
-      <input type="text" id="todo" v-model.trim="inputValue" />
+  <form @submit.prevent="addTodo">
+    <label for="todo">New Todo</label>
+    <input type="text" id="todo" v-model.trim="inputValue" />
 
     <button type="submit" :disabled="!inputValue">Add todo</button>
   </form>
 </template>
 
-
 <style scoped>
-
-form{
+form {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
 }
-
 </style>
-
